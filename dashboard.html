@@ -197,12 +197,7 @@
     .sat-stat-bar { height:4px; border-radius:100px; margin-top:5px; }
     .sat-chart-wrap { flex:1; }
 
-    /* ── NPS GAUGE (semicircle) ── */
-    .imp-gauges { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
-    .imp-gauge-item { text-align:center; }
-    .imp-gauge-label { font-size:.72rem; font-weight:600; color:var(--g700); margin-bottom:8px; }
-    .imp-gauge-val { font-size:.75rem; font-weight:700; color:var(--black); margin-top:2px; }
-    .imp-gauge-sub { display:none; }
+    /* (impact gauges removed) */
 
     /* ── COMMENTS ── */
     .comments-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:22px; }
@@ -342,9 +337,9 @@ function out(data) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     <span>Servicio</span>
   </a>
-  <a class="nav-link" href="#impacto">
+  <a class="nav-link" href="#expectativas">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M12 8v4l3 3"/></svg>
-    <span>Impacto</span>
+    <span>Expectativas</span>
   </a>
   <a class="nav-link" href="#comentarios">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -533,24 +528,23 @@ function out(data) {
       </div>
     </div>
 
-    <!-- ── IMPACTO ── -->
-    <div id="impacto" style="margin-bottom:22px;">
+    <!-- ── EXPECTATIVAS Y NPS ── -->
+    <div id="expectativas" style="margin-bottom:22px;">
       <div class="section-head">
-        <div class="section-tag">Impacto en el negocio</div>
-        <div class="section-title">Resultados por dimensión</div>
+        <div class="section-tag">Expectativas y recomendación</div>
+        <div class="section-title">Cumplimiento y lealtad</div>
       </div>
       <div class="charts-2eq">
-        <!-- Semicircle gauges -->
+        <!-- Expectativas dist -->
         <div class="chart-card">
           <div class="chart-head">
             <div>
-              <div class="chart-title">Nivel de impacto percibido</div>
-              <div class="chart-sub">Escala Nulo (0) → Excepcional (4) — promedio por dimensión</div>
+              <div class="chart-title">Cumplimiento de expectativas</div>
+              <div class="chart-sub">Distribución de respuestas (1–5)</div>
             </div>
+            <div class="chart-pill" id="expectPill">— / 5</div>
           </div>
-          <div class="imp-gauges" id="impGauges">
-            <!-- filled by JS -->
-          </div>
+          <div class="h-240"><canvas id="cExpectDist"></canvas></div>
         </div>
 
         <!-- NPS dist bar -->
@@ -572,26 +566,16 @@ function out(data) {
         <div class="section-tag">Respuestas abiertas</div>
         <div class="section-title">Comentarios cualitativos</div>
       </div>
-      <div class="comments-row">
+      <div class="charts-1col">
         <div class="comment-card">
           <div class="comment-head">
             <div class="comment-icon-wrap" style="background:var(--red-pale)">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             </div>
-            <span class="comment-head-title">Puntos de fricción</span>
+            <span class="comment-head-title">Puntos de mejora</span>
             <span class="comment-head-count" id="fricCount">0 comentarios</span>
           </div>
           <div id="fricList"><div class="empty"><p>Sin respuestas aún</p></div></div>
-        </div>
-        <div class="comment-card">
-          <div class="comment-head">
-            <div class="comment-icon-wrap" style="background:var(--red-pale)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            </div>
-            <span class="comment-head-title">Aspectos positivos a mantener</span>
-            <span class="comment-head-count" id="posCount">0 comentarios</span>
-          </div>
-          <div id="posList"><div class="empty"><p>Sin respuestas aún</p></div></div>
         </div>
       </div>
     </div>
@@ -612,11 +596,11 @@ function out(data) {
         <div class="table-scroll">
           <table>
             <thead><tr>
-              <th>Fecha</th><th>Nombre</th><th>Empresa</th><th>Campaña</th>
-              <th>Satisf.</th><th>NPS</th><th>Fricción</th><th>Positivo</th>
+              <th>Fecha</th><th>Empresa</th><th>Campaña</th>
+              <th>Satisf.</th><th>Expect.</th><th>NPS</th><th>Mejora</th>
             </tr></thead>
             <tbody id="tblBody">
-              <tr><td colspan="8"><div class="empty">
+              <tr><td colspan="7"><div class="empty">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <strong>Sin datos</strong><p>Conecta Google Sheets para ver las respuestas</p>
               </div></td></tr>
@@ -636,27 +620,35 @@ let API = localStorage.getItem(STORE_KEY) || '';
 let ALL = [], ROWS = [];
 
 const C = {
-  fecha:'Fecha/Hora', nombre:'Nombre y apellido', empresa:'Organización/Empresa',
+  fecha:'Fecha/Hora', empresa:'Organización/Empresa',
   proyecto:'Proyecto o campaña', sat:'Satisfacción general (1-10)',
-  creat:'Aporte de valor y creatividad', resp:'Capacidad de respuesta y comunicación',
-  fluid:'Fluidez y claridad en la gestión', plazos:'Cumplimiento de los plazos y compromisos',
-  mater:'Calidad de materiales de producción', informe:'Aporte de valor en informe de resultados',
-  vis:'Impacto: Visibilidad de la marca', conexion:'Impacto: Conexión y respuesta del público',
-  innov:'Impacto: Percepción de innovación/calidad', ventas:'Impacto: Ventas del producto',
-  nps:'NPS (0-10)', fric:'Punto de fricción', pos:'Aspecto positivo a mantener',
+  s_creatividad:'Creatividad', s_respuesta:'Comunicación y capacidad de respuesta',
+  s_plazos:'Cumplimiento de tiempos', s_materiales:'Calidad de los materiales de producción',
+  s_informe:'Presentación del informe', s_staff:'Desempeño del staff',
+  expect:'Expectativas (1-5)', nps:'NPS (0-10)', fric:'Punto de fricción',
 };
 
-const SVC_KEYS   = ['creat','resp','fluid','plazos','mater','informe'];
-const SVC_LABELS = ['Aporte y creatividad','Capacidad de respuesta','Fluidez en gestión','Cumplimiento plazos','Calidad materiales','Valor del informe'];
-const IMP_KEYS   = ['vis','conexion','innov','ventas'];
-const IMP_LABELS = ['Visibilidad de marca','Conexión con público','Innovación / calidad','Impacto en ventas'];
-const IMP_VALS   = ['Nulo','Bajo','Moderado','Alto','Excepcional'];
-const IMP_SCORES = {'Nulo':0,'Bajo':1,'Moderado':2,'Alto':3,'Excepcional':4};
-// Diverging mapping: Deficiente=-2, Pobre=-1, Aceptable=0, Bueno=1, Excelente=2
+const SVC_KEYS   = ['s_creatividad','s_respuesta','s_plazos','s_materiales','s_informe','s_staff'];
+const SVC_LABELS = ['Creatividad','Comunicación y respuesta','Cumplimiento tiempos','Calidad materiales','Presentación informe','Desempeño staff'];
 const SVC_VALS   = ['Deficiente','Pobre','Aceptable','Bueno','Excelente'];
 const T2N        = {'No aplica':null,'Deficiente':1,'Pobre':2,'Aceptable':3,'Bueno':4,'Excelente':5};
+const NUM_TO_SVC = {1:'Deficiente',2:'Pobre',3:'Aceptable',4:'Bueno',5:'Excelente'};
+const EXPECT_LABELS = ['','Nada','Poco','Parcialmente','En gran medida','Totalmente'];
 
-let cSatD, cNpsD;
+function svcNorm(v) {
+  if (v==null||v===''||v==='No aplica') return null;
+  const n=Number(v);
+  if (!isNaN(n)&&n>=1&&n<=5) return NUM_TO_SVC[n]||null;
+  return (T2N[v]!=null)?v:null;
+}
+function svcNum(v) {
+  if (v==null||v===''||v==='No aplica') return null;
+  const n=Number(v);
+  if (!isNaN(n)&&n>=1&&n<=5) return n;
+  return T2N[v]??null;
+}
+
+let cSatD, cNpsD, cExpD;
 
 // ── MODAL ──
 function copyCode() {
@@ -718,7 +710,7 @@ function render() {
   renderKPIs();
   renderServicio();
   renderSatDist();
-  renderImpacto();
+  renderExpect();
   renderNpsDist();
   renderComments();
   renderTable();
@@ -741,7 +733,7 @@ function renderKPIs() {
   se.className='kpi-trend '+(isNaN(sn)?'':sn>=8?'t-up':sn>=6?'t-mid':'t-down');
 
   let svcT=0,svcC=0;
-  SVC_KEYS.forEach(k=>ROWS.forEach(r=>{const v=T2N[r[C[k]]];if(v){svcT+=v;svcC++;}}));
+  SVC_KEYS.forEach(k=>ROWS.forEach(r=>{const v=svcNum(r[C[k]]);if(v){svcT+=v;svcC++;}}));
   const sa=svcC?(svcT/svcC).toFixed(1):'—';
   document.getElementById('svcVal').innerHTML=sa+'<sub>/5</sub>';
   document.getElementById('svcPill').textContent=sa+' / 5';
@@ -777,7 +769,7 @@ function renderServicio() {
   // Count per label per category (excluding No aplica)
   const counts = SVC_KEYS.map(k => {
     const c = {'Deficiente':0,'Pobre':0,'Aceptable':0,'Bueno':0,'Excelente':0};
-    ROWS.forEach(r => { const v=r[C[k]]; if(c[v]!==undefined) c[v]++; });
+    ROWS.forEach(r => { const v=svcNorm(r[C[k]]); if(v&&c[v]!==undefined) c[v]++; });
     return c;
   });
   const totals = counts.map(c => Object.values(c).reduce((a,b)=>a+b,0)||1);
@@ -924,83 +916,39 @@ function renderSatDist() {
   });
 }
 
-// ── IMPACTO SEMICIRCLE GAUGES ──
-function renderImpacto() {
-  const wrap = document.getElementById('impGauges');
-  wrap.innerHTML = '';
-  IMP_KEYS.forEach((k,i) => {
-    const vals = ROWS.map(r=>r[C[k]]).filter(v=>IMP_SCORES[v]!==undefined);
-    const avg  = vals.length ? vals.reduce((a,v)=>a+IMP_SCORES[v],0)/vals.length : 0;
-    const pct  = avg/4; // 0-1
-    const label = IMP_LABELS[i];
+// ── EXPECTATIVAS DIST BAR ──
+function renderExpect() {
+  const vals = ROWS.map(r=>parseInt(r[C.expect])).filter(v=>v>=1&&v<=5);
+  const n = vals.length||1;
+  const counts = Array(5).fill(0);
+  vals.forEach(v=>counts[v-1]++);
+  const avg = vals.length ? (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : '—';
+  document.getElementById('expectPill').textContent = avg + ' / 5';
 
-    const id = 'gauge_'+k;
-    const div = document.createElement('div');
-    div.className = 'imp-gauge-item';
-    div.innerHTML = `
-      <div class="imp-gauge-label">${label}</div>
-      <canvas id="${id}" width="160" height="100"></canvas>
-      <div class="imp-gauge-val" id="${id}_val">—</div>`;
-    wrap.appendChild(div);
-
-    requestAnimationFrame(() => drawGauge(id, pct, avg, vals.length));
+  const ctx = document.getElementById('cExpectDist').getContext('2d');
+  if(cExpD) cExpD.destroy();
+  cExpD = new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:EXPECT_LABELS.slice(1),
+      datasets:[{
+        data:counts,
+        backgroundColor:['#E8192C','#F87171','#D97706','#60A5FA','#16A34A'],
+        borderRadius:7, borderSkipped:false,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{ callbacks:{ label: c => ` ${c.raw} resp. (${(c.raw/n*100).toFixed(0)}%)` } }
+      },
+      scales:{
+        x:{grid:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#78787E'}},
+        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{family:'Poppins',size:10},color:'#78787E',stepSize:1}}
+      }
+    }
   });
-}
-
-function drawGauge(id, pct, avg, n) {
-  const canvas = document.getElementById(id);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W=canvas.width, H=canvas.height;
-  const cx=W/2, cy=H-14, r=58;
-
-  ctx.clearRect(0,0,W,H);
-
-  // Background arc
-  ctx.beginPath();
-  ctx.arc(cx,cy,r,Math.PI,0);
-  ctx.lineWidth=14; ctx.strokeStyle='#E2E2E6';
-  ctx.lineCap='round'; ctx.stroke();
-
-  // Colored arc
-  const color = pct>=0.75?'#16A34A':pct>=0.5?'#22C55E':pct>=0.25?'#D97706':'#E8192C';
-  const endAngle = Math.PI+(pct*Math.PI);
-  ctx.beginPath();
-  ctx.arc(cx,cy,r,Math.PI,endAngle);
-  ctx.lineWidth=14; ctx.strokeStyle=color;
-  ctx.lineCap='round'; ctx.stroke();
-
-  // Moving dot on arc tip
-  const dotX = cx+Math.cos(endAngle)*r, dotY = cy+Math.sin(endAngle)*r;
-  ctx.beginPath(); ctx.arc(dotX,dotY,5,0,Math.PI*2);
-  ctx.fillStyle=color; ctx.fill();
-  ctx.beginPath(); ctx.arc(dotX,dotY,2.5,0,Math.PI*2);
-  ctx.fillStyle='white'; ctx.fill();
-
-  // Score inside arc (centered)
-  if(n) {
-    ctx.save();
-    ctx.font = '800 18px Poppins,sans-serif';
-    ctx.fillStyle = color;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(avg.toFixed(1), cx, cy - 14);
-    ctx.restore();
-    ctx.save();
-    ctx.font = '500 9px Poppins,sans-serif';
-    ctx.fillStyle = '#B0B0B6';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('/ 4', cx, cy - 1);
-    ctx.restore();
-  }
-
-  const valEl = document.getElementById(id+'_val');
-  if(valEl) {
-    const lvl = ['Nulo','Bajo','Moderado','Alto','Excepcional'];
-    valEl.textContent = n ? lvl[Math.round(avg)] || '—' : '—';
-    valEl.style.color = color;
-  }
 }
 
 // ── NPS DIST BAR ──
@@ -1033,14 +981,9 @@ function renderNpsDist() {
 // ── COMMENTS ──
 function renderComments() {
   const fr=ROWS.filter(r=>r[C.fric]?.toString().trim()).slice(-10).reverse();
-  const po=ROWS.filter(r=>r[C.pos]?.toString().trim()).slice(-10).reverse();
   document.getElementById('fricCount').textContent=fr.length+' comentarios';
-  document.getElementById('posCount').textContent=po.length+' comentarios';
   document.getElementById('fricList').innerHTML=fr.length
     ?fr.map(r=>`<div class="comment-item">${r[C.fric]}<div class="comment-meta">${r[C.empresa]||'—'} · ${fmtDate(r[C.fecha])}</div></div>`).join('')
-    :'<div class="empty"><p>Sin comentarios aún</p></div>';
-  document.getElementById('posList').innerHTML=po.length
-    ?po.map(r=>`<div class="comment-item">${r[C.pos]}<div class="comment-meta">${r[C.empresa]||'—'} · ${fmtDate(r[C.fecha])}</div></div>`).join('')
     :'<div class="empty"><p>Sin comentarios aún</p></div>';
 }
 
@@ -1049,21 +992,21 @@ function renderTable() {
   const tbody=document.getElementById('tblBody');
   document.getElementById('tblCount').textContent=ROWS.length+' registros';
   if(!ROWS.length){
-    tbody.innerHTML='<tr><td colspan="8"><div class="empty"><strong>Sin datos</strong><p>No hay respuestas para este filtro</p></div></td></tr>';
+    tbody.innerHTML='<tr><td colspan="7"><div class="empty"><strong>Sin datos</strong><p>No hay respuestas para este filtro</p></div></td></tr>';
     return;
   }
   const sc=v=>isNaN(v)?'':v>=8?'b-g':v>=6?'b-a':'b-r';
+  const ec=v=>isNaN(v)?'':v>=4?'b-g':v>=3?'b-a':'b-r';
   tbody.innerHTML=[...ROWS].reverse().map(r=>{
-    const sat=parseFloat(r[C.sat]),nps=parseFloat(r[C.nps]);
+    const sat=parseFloat(r[C.sat]),nps=parseFloat(r[C.nps]),exp=parseInt(r[C.expect]);
     return `<tr>
       <td><b>${fmtDate(r[C.fecha])}</b></td>
-      <td>${r[C.nombre]||'—'}</td>
       <td>${r[C.empresa]||'—'}</td>
       <td>${r[C.proyecto]||'—'}</td>
       <td><span class="badge ${sc(sat)}">${isNaN(sat)?'—':sat}/10</span></td>
+      <td><span class="badge ${ec(exp)}">${isNaN(exp)?'—':(EXPECT_LABELS[exp]||exp)}</span></td>
       <td><span class="badge ${sc(nps)}">${isNaN(nps)?'—':nps}/10</span></td>
       <td class="wrap">${r[C.fric]||'—'}</td>
-      <td class="wrap">${r[C.pos]||'—'}</td>
     </tr>`;
   }).join('');
 }
