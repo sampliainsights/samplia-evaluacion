@@ -11,24 +11,39 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red:       #E8192C;
-      --red-dark:  #C4101F;
-      --red-pale:  #FFF0F1;
+      /* ── Paleta Samplia (lksjdfls.pdf) ── */
+      --raspberry: #E0253F;   /* rojo de marca      */
+      --brick:     #B51A03;   /* rojo oscuro        */
+      --watermelon:#E9455B;   /* rojo claro         */
+      --blush:     #FBDBDF;   /* rosa suave         */
+      --dusk:      #375395;   /* azul de marca      */
+      --prussian:  #0F1729;   /* tinta / azul noche */
+
+      --red:       var(--raspberry);
+      --red-dark:  var(--brick);
+      --red-pale:  var(--blush);
       --white:     #FFFFFF;
-      --bg:        #F2F2F4;
-      --sidebar-bg:#EBEBED;
-      --g50:       #EFEFEF;
-      --g100:      #E2E2E6;
-      --g200:      #CACACE;
-      --g300:      #B0B0B6;
-      --g500:      #78787E;
-      --g700:      #38383E;
-      --black:     #101012;
-      --green:     #16A34A;
-      --green-lt:  #22C55E;
-      --amber:     #D97706;
-      --blue-dark: #1D4ED8;
-      --blue-mid:  #3B82F6;
+      --bg:        #F4F1F2;
+      --sidebar-bg:#EAE5E7;
+      --g50:       #F0ECEE;
+      --g100:      #E3DDE0;
+      --g200:      #CBC4C7;
+      --g300:      #ADA8AE;
+      --g500:      #76737C;
+      --g700:      #37353E;
+      --black:     var(--prussian);
+      /* escala divergente negativo → positivo */
+      --neg:       var(--brick);
+      --neg-lt:    var(--watermelon);
+      --neutral:   #C2C6D1;   /* derivado: neutro con matiz Prussian */
+      --pos-lt:    #7387B5;   /* derivado: Dusk Blue + 30% blanco    */
+      --pos:       var(--dusk);
+      --pos-ink:   #2A4175;   /* derivado: Dusk Blue -25%, para texto */
+      --green:     var(--pos);
+      --green-lt:  var(--pos-lt);
+      --amber:     var(--watermelon);
+      --blue-dark: var(--dusk);
+      --blue-mid:  var(--pos-lt);
       --shadow:    0 1px 2px rgba(0,0,0,.04), 0 3px 10px rgba(0,0,0,.06);
     }
 
@@ -79,7 +94,7 @@
     /* ── TOPBAR ── */
     .topbar {
       position:sticky; top:0; z-index:40;
-      background:rgba(242,242,244,.95); backdrop-filter:blur(12px);
+      background:rgba(244,241,242,.95); backdrop-filter:blur(12px);
       border-bottom:1px solid var(--g100);
       display:flex; align-items:center; justify-content:space-between;
       padding:0 28px; height:56px; gap:14px;
@@ -150,9 +165,9 @@
       font-size:.62rem; font-weight:700; padding:2px 7px;
       border-radius:100px;
     }
-    .t-up   { background:rgba(22,163,74,.1);  color:#0f6b2e; }
-    .t-mid  { background:rgba(217,119,6,.1);  color:#92540a; }
-    .t-down { background:rgba(232,25,44,.1);  color:var(--red-dark); }
+    .t-up   { background:rgba(55,83,149,.12); color:var(--pos-ink); }
+    .t-mid  { background:rgba(233,69,91,.12); color:var(--brick); }
+    .t-down { background:rgba(224,37,63,.12); color:var(--red-dark); }
 
     .kpi-val { font-size:2.2rem; font-weight:800; letter-spacing:-.05em; line-height:1; color:var(--black); margin-bottom:3px; }
     .kpi-val sub { font-size:.75rem; font-weight:500; color:var(--g300); vertical-align:baseline; }
@@ -226,9 +241,9 @@
     tbody td.wrap { white-space:normal; max-width:200px; line-height:1.4; }
     tbody td b { color:var(--black); font-weight:600; }
     .badge { display:inline-flex; align-items:center; padding:2px 7px; border-radius:100px; font-size:.63rem; font-weight:700; }
-    .b-g { background:rgba(22,163,74,.1); color:#0f6b2e; }
-    .b-a { background:rgba(217,119,6,.1);  color:#92540a; }
-    .b-r { background:rgba(232,25,44,.1);  color:var(--red-dark); }
+    .b-g { background:rgba(55,83,149,.12); color:var(--pos-ink); }
+    .b-a { background:rgba(233,69,91,.12); color:var(--brick); }
+    .b-r { background:rgba(224,37,63,.12); color:var(--red-dark); }
 
     /* ── EMPTY ── */
     .empty { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; gap:8px; color:var(--g500); text-align:center; }
@@ -250,7 +265,7 @@
     .code-block { background:var(--g50); border:1px solid var(--g100); border-radius:8px; padding:12px; font-family:monospace; font-size:.62rem; line-height:1.75; color:var(--g700); overflow:auto; max-height:150px; margin:12px 0; }
     .mactions { display:flex; gap:9px; margin-top:18px; }
     .mbtn { flex:1; padding:10px; border-radius:9px; border:none; font-family:'Poppins',sans-serif; font-size:.78rem; font-weight:700; cursor:pointer; transition:all .15s; }
-    .mbtn-p { background:var(--red); color:white; box-shadow:0 4px 12px rgba(232,25,44,.25); }
+    .mbtn-p { background:var(--red); color:white; box-shadow:0 4px 12px rgba(224,37,63,.25); }
     .mbtn-p:hover { background:var(--red-dark); }
     .mbtn-s { background:var(--g50); color:var(--g700); border:1.5px solid var(--g100); }
     .mbtn-s:hover { border-color:var(--g300); }
@@ -282,26 +297,31 @@
   <div class="modal">
     <div class="modal-logo">
       <img src="https://samplia.com/assets/img/Samplia.svg" alt="Samplia"
-        onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'Samplia',style:'font-weight:800;font-size:1rem;color:#E8192C;font-family:Poppins,sans-serif'}))" />
+        onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'Samplia',style:'font-weight:800;font-size:1rem;color:#E0253F;font-family:Poppins,sans-serif'}))" />
     </div>
     <h2>Conectar Google Sheets</h2>
-    <p>Añade la función <strong>doGet</strong> a tu Apps Script, reimplementa y pega la nueva URL aquí.</p>
-    <div class="code-block" id="codeBlock">function doGet(e) {
-  const ss    = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName("Respuestas");
-  if (!sheet) return out({ rows: [] });
+    <p>Pega el archivo <strong>Codigo.gs</strong> completo en tu Apps Script, reimplementa la versión y pega aquí la URL <code>/exec</code>.</p>
+    <div class="code-block" id="codeBlock">function doGet() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet()
+                  .getSheetByName("Respuestas");
+  if (!sheet || sheet.getLastRow() &lt; 2) return out({ rows: [] });
   const data    = sheet.getDataRange().getValues();
-  const headers = data[0];
-  const rows    = data.slice(1).map(row => {
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = row[i]);
-    return obj;
-  });
+  const headers = data[0].map(h =&gt; String(h).trim());
+  const rows = data.slice(1)
+    .filter(r =&gt; r.some(c =&gt; String(c).trim() !== ""))
+    .map(r =&gt; {
+      const o = {};
+      headers.forEach((h, i) =&gt; {
+        if (!h) return;
+        o[h] = (r[i] instanceof Date) ? r[i].toISOString() : r[i];
+      });
+      return o;
+    });
   return out({ rows });
 }
-function out(data) {
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
+
+function out(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }</div>
     <div class="mfield">
@@ -422,7 +442,7 @@ function out(data) {
         <div class="kpi" style="animation-delay:.05s">
           <div class="kpi-stripe" style="background:var(--green)"></div>
           <div class="kpi-top">
-            <div class="kpi-icon" style="background:rgba(22,163,74,.1)">
+            <div class="kpi-icon" style="background:rgba(55,83,149,.1)">
               <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
             </div>
             <span class="kpi-trend" id="satTrend">—</span>
@@ -434,10 +454,10 @@ function out(data) {
 
         <!-- Calidad servicio -->
         <div class="kpi" style="animation-delay:.10s">
-          <div class="kpi-stripe" style="background:#2563EB"></div>
+          <div class="kpi-stripe" style="background:var(--dusk)"></div>
           <div class="kpi-top">
-            <div class="kpi-icon" style="background:rgba(37,99,235,.08)">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div class="kpi-icon" style="background:rgba(55,83,149,.08)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#375395" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             </div>
             <span class="kpi-trend" id="svcTrend">—</span>
           </div>
@@ -474,20 +494,20 @@ function out(data) {
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
               <div class="chart-title">Aspectos del servicio</div>
               <div class="chart-sub" style="margin-top:0;">
-                <span style="color:#C4101F;font-weight:600;">negativo ←</span>
+                <span style="color:var(--brick);font-weight:600;">negativo ←</span>
                 <span style="color:var(--g300);"> / </span>
-                <span style="color:#1D4ED8;font-weight:600;">→ positivo</span>
+                <span style="color:var(--dusk);font-weight:600;">→ positivo</span>
               </div>
             </div>
             <div class="chart-pill" id="svcPill">— / 5</div>
           </div>
           <!-- Diverging bar legend -->
           <div style="display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#C4101F"></div>Deficiente</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#F87171"></div>Pobre</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#C0C0C4"></div>Aceptable</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#60A5FA"></div>Bueno</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#1D4ED8"></div>Excelente</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#B51A03"></div>Deficiente</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#E9455B"></div>Pobre</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#C2C6D1"></div>Aceptable</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#7387B5"></div>Bueno</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--g500)"><div style="width:10px;height:10px;border-radius:2px;background:#375395"></div>Excelente</div>
           </div>
           <div class="h-280"><canvas id="cServicio"></canvas></div>
         </div>
@@ -509,17 +529,17 @@ function out(data) {
               <div class="sat-stat-item">
                 <div class="sat-stat-val" id="satMuySat" style="color:var(--green)">—</div>
                 <div class="sat-stat-label" style="color:var(--green)">Muy satisfecho</div>
-                <div class="sat-stat-bar" style="background:rgba(22,163,74,.12)"><div id="satMuySatBar" style="height:4px;border-radius:100px;background:var(--green);width:0%"></div></div>
+                <div class="sat-stat-bar" style="background:rgba(55,83,149,.12)"><div id="satMuySatBar" style="height:4px;border-radius:100px;background:var(--green);width:0%"></div></div>
               </div>
               <div class="sat-stat-item">
-                <div class="sat-stat-val" id="satSat" style="color:#15803D">—</div>
-                <div class="sat-stat-label" style="color:#15803D">Satisfecho</div>
-                <div class="sat-stat-bar" style="background:rgba(21,128,61,.1)"><div id="satSatBar" style="height:4px;border-radius:100px;background:#15803D;width:0%"></div></div>
+                <div class="sat-stat-val" id="satSat" style="color:var(--pos-lt)">—</div>
+                <div class="sat-stat-label" style="color:var(--pos-lt)">Satisfecho</div>
+                <div class="sat-stat-bar" style="background:rgba(115,135,181,.18)"><div id="satSatBar" style="height:4px;border-radius:100px;background:var(--pos-lt);width:0%"></div></div>
               </div>
               <div class="sat-stat-item">
-                <div class="sat-stat-val" id="satNoSat" style="background:linear-gradient(90deg,#D97706,#E8192C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">—</div>
-                <div class="sat-stat-label" style="background:linear-gradient(90deg,#D97706,#E8192C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">No satisfecho</div>
-                <div class="sat-stat-bar" style="background:rgba(217,119,6,.1)"><div id="satNoSatBar" style="height:4px;border-radius:100px;background:linear-gradient(90deg,#D97706,#E8192C);width:0%"></div></div>
+                <div class="sat-stat-val" id="satNoSat" style="background:linear-gradient(90deg,var(--watermelon),var(--brick));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">—</div>
+                <div class="sat-stat-label" style="background:linear-gradient(90deg,var(--watermelon),var(--brick));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">No satisfecho</div>
+                <div class="sat-stat-bar" style="background:rgba(233,69,91,.12)"><div id="satNoSatBar" style="height:4px;border-radius:100px;background:linear-gradient(90deg,var(--watermelon),var(--brick));width:0%"></div></div>
               </div>
             </div>
             <div class="sat-chart-wrap h-280"><canvas id="cSatDist"></canvas></div>
@@ -787,11 +807,11 @@ function renderServicio() {
     data:{
       labels:SVC_LABELS,
       datasets:[
-        { label:'Pobre',      data:pobrPct, backgroundColor:'#F87171', borderRadius:3, borderSkipped:false },
-        { label:'Deficiente', data:defPct,  backgroundColor:'#C4101F', borderRadius:3, borderSkipped:false },
-        { label:'Aceptable',  data:acepPct, backgroundColor:'#C0C0C4', borderRadius:3, borderSkipped:false },
-        { label:'Bueno',      data:bienPct, backgroundColor:'#60A5FA', borderRadius:3, borderSkipped:false },
-        { label:'Excelente',  data:exelPct, backgroundColor:'#1D4ED8', borderRadius:3, borderSkipped:false },
+        { label:'Pobre',      data:pobrPct, backgroundColor:'#E9455B', borderRadius:3, borderSkipped:false },
+        { label:'Deficiente', data:defPct,  backgroundColor:'#B51A03', borderRadius:3, borderSkipped:false },
+        { label:'Aceptable',  data:acepPct, backgroundColor:'#C2C6D1', borderRadius:3, borderSkipped:false },
+        { label:'Bueno',      data:bienPct, backgroundColor:'#7387B5', borderRadius:3, borderSkipped:false },
+        { label:'Excelente',  data:exelPct, backgroundColor:'#375395', borderRadius:3, borderSkipped:false },
       ]
     },
     options:{
@@ -813,14 +833,14 @@ function renderServicio() {
           min:-100, max:100,
           grid:{color:'rgba(0,0,0,.04)'},
           ticks:{
-            font:{family:'Poppins',size:10},color:'#78787E',
+            font:{family:'Poppins',size:10},color:'#76737C',
             callback: v => Math.abs(v)+'%'
           }
         },
         y:{
           stacked:true,
           grid:{display:false},
-          ticks:{font:{family:'Poppins',size:11},color:'#38383E'}
+          ticks:{font:{family:'Poppins',size:11},color:'#37353E'}
         }
       }
     },
@@ -845,7 +865,7 @@ function renderServicio() {
             const xPx = xScale.getPixelForValue(negSum);
             ctx.save();
             ctx.font = '600 9px Poppins,sans-serif';
-            ctx.fillStyle = '#C4101F';
+            ctx.fillStyle = '#B51A03';
             ctx.textAlign = 'right';
             ctx.textBaseline = 'middle';
             ctx.fillText(Math.abs(negSum).toFixed(0)+'%', xPx-4, y);
@@ -855,7 +875,7 @@ function renderServicio() {
             const xPx = xScale.getPixelForValue(posSum);
             ctx.save();
             ctx.font = '600 9px Poppins,sans-serif';
-            ctx.fillStyle = '#1D4ED8';
+            ctx.fillStyle = '#375395';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
             ctx.fillText(posSum.toFixed(0)+'%', xPx+4, y);
@@ -898,7 +918,7 @@ function renderSatDist() {
       labels:['1','2','3','4','5','6','7','8','9','10'],
       datasets:[{
         data:pcts,
-        backgroundColor:pcts.map((_,i)=>i<=5?'rgba(232,25,44,.7)':i<=6?'rgba(217,119,6,.7)':i<=7?'rgba(22,163,74,.5)':'rgba(22,163,74,.85)'),
+        backgroundColor:pcts.map((_,i)=>i<=5?'rgba(181,26,3,.80)':i<=6?'rgba(233,69,91,.75)':i<=7?'rgba(55,83,149,.55)':'rgba(55,83,149,.90)'),
         borderRadius:6, borderSkipped:false,
       }]
     },
@@ -909,8 +929,8 @@ function renderSatDist() {
         tooltip:{ callbacks:{ label: c => ` ${c.raw}% (${counts[c.dataIndex]} resp.)` } }
       },
       scales:{
-        x:{ grid:{display:false}, ticks:{font:{family:'Poppins',size:10},color:'#78787E'} },
-        y:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{family:'Poppins',size:9},color:'#78787E', callback:v=>v+'%'} }
+        x:{ grid:{display:false}, ticks:{font:{family:'Poppins',size:10},color:'#76737C'} },
+        y:{ grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{family:'Poppins',size:9},color:'#76737C', callback:v=>v+'%'} }
       }
     }
   });
@@ -933,7 +953,7 @@ function renderExpect() {
       labels:EXPECT_LABELS.slice(1),
       datasets:[{
         data:counts,
-        backgroundColor:['#E8192C','#F87171','#D97706','#60A5FA','#16A34A'],
+        backgroundColor:['#B51A03','#E9455B','#C2C6D1','#7387B5','#375395'],
         borderRadius:7, borderSkipped:false,
       }]
     },
@@ -944,8 +964,8 @@ function renderExpect() {
         tooltip:{ callbacks:{ label: c => ` ${c.raw} resp. (${(c.raw/n*100).toFixed(0)}%)` } }
       },
       scales:{
-        x:{grid:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#78787E'}},
-        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{family:'Poppins',size:10},color:'#78787E',stepSize:1}}
+        x:{grid:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#76737C'}},
+        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{family:'Poppins',size:10},color:'#76737C',stepSize:1}}
       }
     }
   });
@@ -963,7 +983,7 @@ function renderNpsDist() {
       labels:['0','1','2','3','4','5','6','7','8','9','10'],
       datasets:[{
         data:counts,
-        backgroundColor:counts.map((_,i)=>i<=6?'rgba(232,25,44,.7)':i<=8?'rgba(217,119,6,.7)':'rgba(22,163,74,.8)'),
+        backgroundColor:counts.map((_,i)=>i<=6?'rgba(181,26,3,.80)':i<=8?'rgba(194,198,209,.95)':'rgba(55,83,149,.90)'),
         borderRadius:7, borderSkipped:false,
       }]
     },
@@ -971,8 +991,8 @@ function renderNpsDist() {
       responsive:true, maintainAspectRatio:false,
       plugins:{legend:{display:false}},
       scales:{
-        x:{grid:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#78787E'}},
-        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{family:'Poppins',size:10},color:'#78787E',stepSize:1}}
+        x:{grid:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#76737C'}},
+        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{family:'Poppins',size:10},color:'#76737C',stepSize:1}}
       }
     }
   });
